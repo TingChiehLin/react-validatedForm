@@ -1,9 +1,18 @@
 import {useState, ChangeEvent, FormEvent} from "react";
 
-const useInput = (validateValue:any) => {
+interface useInputType {
+    value: string,
+    isValid: boolean,
+    hasError: boolean,
+    valueChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void,
+    inputBlurHandler: (event: FormEvent<HTMLInputElement>) => void,
+    reset: () => void
+}
 
-    const [enteredValue, setEnteredValue] = useState('')
-    const [isTouched, setIsTouched] = useState(false)
+const useInput = (validateValue:Function) => {
+
+    const [enteredValue, setEnteredValue] = useState<string>('')
+    const [isTouched, setIsTouched] = useState<boolean>(false)
 
     const valueIsValid = validateValue(enteredValue);
     const hasError = !valueIsValid && isTouched;
@@ -21,7 +30,7 @@ const useInput = (validateValue:any) => {
         setIsTouched(false);
     }
 
-    return {
+    const userInputData: useInputType = {
         value: enteredValue,
         isValid: valueIsValid,
         hasError,
@@ -29,6 +38,8 @@ const useInput = (validateValue:any) => {
         inputBlurHandler,
         reset
     }
+
+    return userInputData
 };
 
 export default useInput;
