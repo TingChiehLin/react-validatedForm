@@ -2,7 +2,7 @@ import {useState, ChangeEvent, FormEvent} from "react";
 
 interface useInputType {
     value: string,
-    isValid: boolean,
+    isValid?: boolean,
     hasError: boolean,
     valueChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void,
     inputBlurHandler: (event: FormEvent<HTMLInputElement>) => void,
